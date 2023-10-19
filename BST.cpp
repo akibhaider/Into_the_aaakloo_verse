@@ -1,5 +1,6 @@
 #include<iostream>
 #include<queue>
+#include<stack>
 
 #define spc " "
 #define nl '\n'
@@ -13,7 +14,6 @@ typedef struct Node{
 
 Node* root=nullptr;
 int Diameter=1;
-//first comment
 
 Node* createNode(int x){
     Node* newnode = new Node;
@@ -22,6 +22,7 @@ Node* createNode(int x){
     newnode->left = newnode->right = newnode->parent = nullptr;
 }
 
+// Arg: key to search for
 Node* NodeSearchByValue(int x){
     Node* temp = root;
     while(temp!=nullptr){
@@ -36,6 +37,7 @@ Node* NodeSearchByValue(int x){
     return nullptr;
 }
 
+// Arg: root
 void PreorderTraversal(Node* temp){
     if(temp==nullptr){
         return;
@@ -45,6 +47,7 @@ void PreorderTraversal(Node* temp){
     PreorderTraversal(temp->right);
 }
 
+// Arg: root
 void PostorderTraversal(Node* temp){
     if(temp==nullptr){
         return;
@@ -54,6 +57,7 @@ void PostorderTraversal(Node* temp){
     cout<<temp->data<<spc;    
 }
 
+// Arg: root
 void InorderTraversal(Node* temp){
     if(temp==nullptr){
         return;
@@ -63,22 +67,35 @@ void InorderTraversal(Node* temp){
     InorderTraversal(temp->right);
 }
 
+// Arg: root
 void LevelorderTraversal(Node* root){
     queue<Node*>Q;
     Node* temp;
     Q.push(root);
     while(!Q.empty()){
-        temp=Q.front();
-        cout<<temp->data<<":"<<temp->height<<spc;
-        if(temp->left)
-            Q.push(temp->left);
-        if(temp->right)
-            Q.push(temp->right);
-        Q.pop();
+        int i=1;
+        int nodeInlevel = Q.size();
+        while(nodeInlevel--){
+            cout<<"Level "<<i<<": ";
+            temp=Q.front();
+            if(temp==root){
+                cout<<temp->data<<"(null)"<<spc;    
+            }else{
+                cout<<temp->data<<"("<<temp->parent->data<<")"<<spc;         
+            }
+            if(temp->left)
+                Q.push(temp->left);
+            if(temp->right)
+                Q.push(temp->right);
+            Q.pop();
+            i++;
+        } 
+        cout<<nl;     
     }
 }
 
-// Min in path, Max in path
+// Arg: key of two node
+// ret: Max key of a node in the path
 int MaxInPath(int x, int y){
     Node* temp = root;
     int mx=y;
@@ -92,6 +109,7 @@ int MaxInPath(int x, int y){
         }else 
             break;
     }
+    // max will be always in the right subtree from LCA; So traverse LCA to y
     while(temp->data != y){
         if(y<temp->data)temp=temp->left;
         else if(y>temp->data)temp=temp->right;
@@ -100,6 +118,30 @@ int MaxInPath(int x, int y){
     return mx;
 }
 
+// Arg: key of two node
+// ret: Min key of a node in the path
+int MinInPath(int x, int y){
+    Node* temp = root;
+    int mn=x;
+    while(temp){
+        if(temp->data<mn)mn=temp->data;
+
+        if(temp->data < x){
+            temp=temp->right;
+        }else if(temp->data > y){
+            temp=temp->left;
+        }else 
+            break;
+    }
+    // min will always be in the left subtree from LCA; traverse LCA to x
+    while(temp->data != x){
+        if(x<temp->data)temp=temp->left;
+        else if(x>temp->data)temp=temp->right;
+        mn=min(mn, temp->data);
+    }
+    return mn;
+}
+// Arg: Node to be inserted
 void InsertBST(int x){
     Node* n = createNode(x);
     if(root==nullptr){
@@ -139,7 +181,8 @@ void InsertBST(int x){
     }
 }
 
-// Corner case: Most Right node from the root has no successor
+// Arg: query node
+// ret: Successor node
 Node* Successor(Node* n){
     if(n->right){
         n=n->right;
@@ -151,11 +194,36 @@ Node* Successor(Node* n){
         Node* p = n;
         while(p->data<=n->data){
             p=p->parent;
+            if(p==root){
+                return nullptr;
+            }
         }
         return p;
     }
 }
 
+// Arg: query node
+// ret: Predecessor node
+Node* Predecessor(Node* n){
+    if(n->left){
+        n=n->left;
+        while(n->right){
+            n=n->right;
+        }
+        return n;
+    }else{
+        Node* p=n;
+        while(p->data>=n->data){
+            p=p->parent;
+            if(p==root){
+                return nullptr;
+            }
+        }
+        return p;
+    }
+}
+
+// Arg: Node to be deleted
 void deleteNodeBST(int x){
     Node* n = NodeSearchByValue(x);
     if(n){
@@ -215,9 +283,10 @@ void deleteNodeBST(int x){
             }
         }
     }
-    // LevelorderTraversal(root);
 }
 
+// arg: Recursive fn starting with root
+// No ret-type; Update Diamter
 void DiameterBST(Node* temp){
     if(temp==nullptr){
         return;
@@ -230,7 +299,9 @@ void DiameterBST(Node* temp){
     DiameterBST(temp->right);
 }
 
-int LowestCommonAncestorBST(int x, int y){
+// Arg: Key of two node
+// Ret: LCA node 
+Node* LowestCommonAncestorBST(int x, int y){
     Node* temp=root;
     while(x>temp->data || temp->data>y){
         if(temp->data<x){
@@ -239,7 +310,7 @@ int LowestCommonAncestorBST(int x, int y){
             temp=temp->left;
         }
     }
-    return temp->data;
+    return temp;
 }
 
 int main(){
