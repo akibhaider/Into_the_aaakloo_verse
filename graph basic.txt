@@ -1,0 +1,27 @@
+Traversing all edges only once and check out all the nodes(can be traversed multiple times) : Must have at most two nodes with odd degrees. 
+Node: Represents any object
+Edge: Any relation between two nodes 
+Adjacent node: Connected node, have common edge
+Degree: Number of adjecent nodes
+Subgraph: Collection of some nodes and edges from a graph
+Directed Graph:
+Undirected(Bidireced) graph:
+			Obs: Symmetric adjacency matrix 
+Weighted(costly) and Unweighted graph: 
+Path: Sequence of edges from one node to another
+Shortest path: Path with lowest cost
+In-degree and out-degree of directed graph: 
+Tree: Only one edge between two nodes. ---In Total: N nodes and N-1 edges---
+
+Special Graphs: 
+1. Complete graph: Every node connected with each other
+2. Cycle: 
+3. Wheel: 
+4. Bipartite: Can be partitioned into two sets. [No edge between nodes of same set, only connected with nodes from different set]
+	 Obs: Bipartite graphs can be colored in two colors, where no adjacent nodes have same color
+ 
+Adjacency Matrix: (Obs: bool 2D array for unweighted graph)
+	    Pros: (i) connection checking between two nodes and getting weight in O(1). (ii) Graph build using simple 2D array
+	    Cons: (i) O(n*n) memory. (ii) getting all adjacent nodes in O(n). (iii) Multiple edges between two nodes can't be implemented
+
+		
