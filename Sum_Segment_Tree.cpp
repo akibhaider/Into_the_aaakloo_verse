@@ -20,7 +20,7 @@ void aaakloo(){
     cin.tie(NULL);
 }
 
-vll sum_seg_tree(2e6);
+vll sum_seg_tree(2e6+8);
 vll a(5e5+2);
 
 void build_sum_seg_Tree(ll i, ll l, ll r){
@@ -28,23 +28,23 @@ void build_sum_seg_Tree(ll i, ll l, ll r){
     if(l==r){
         sum_seg_tree[i]=a[l];
     }else{
-        build_sum_seg_Tree(2*i+1, l, m);
-        build_sum_seg_Tree(2*i+2, m+1, r);
-        sum_seg_tree[i]=sum_seg_tree[2*i+1]+sum_seg_tree[2*i+2];
+        build_sum_seg_Tree(2*i, l, m);
+        build_sum_seg_Tree(2*i+1, m+1, r);
+        sum_seg_tree[i]=sum_seg_tree[2*i]+sum_seg_tree[2*i+1];
     }
 }
 
 void update_sum_seg_tree(ll i, ll l, ll r, ll pos, ll x){
     ll m=(l+r)/2;
     if(l==r){
-        sum_seg_tree[i]=x;
+        sum_seg_tree[i]+=x;
     }else{
         if(pos<=m){
-            update_sum_seg_tree(2*i+1, l, m, pos, x);
+            update_sum_seg_tree(2*i, l, m, pos, x);
         }else{
-            update_sum_seg_tree(2*i+2, m+1, r, pos, x);
+            update_sum_seg_tree(2*i+1, m+1, r, pos, x);
         }
-        sum_seg_tree[i]=sum_seg_tree[2*i+1]+sum_seg_tree[2*i+2];
+        sum_seg_tree[i]=sum_seg_tree[2*i]+sum_seg_tree[2*i+1];
     }
 }
 
@@ -56,22 +56,22 @@ ll sum_query(ll i, ll tl, ll tr, ll ql, ll qr){
         return sum_seg_tree[i];
     }
     ll m=(tl+tr)/2;
-    return sum_query(2*i+1, tl, m, ql, min(m, qr)) + sum_query(2*i+2, m+1, tr, max(ql, m+1), qr);
+    return sum_query(2*i, tl, m, ql, min(m, qr)) + sum_query(2*i+1, m+1, tr, max(ql, m+1), qr);
 }
 
 void solve(){
     ll n, q, cmd, x, y;
     cin>>n>>q;
-    for(int i=0; i<n; i++){
+    for(int i=1; i<=n; i++){
         cin>>a[i];
     }
-    build_sum_seg_Tree(0, 0, n-1);
+    build_sum_seg_Tree(1, 1, n);
     while(q--){
         cin>>cmd>>x>>y;
-        if(cmd){
-            cout<<sum_query(0, 0, n-1, x, --y)<<nl;
+        if(cmd==1){
+            cout<<sum_query(1, 1, n, x+1, y)<<nl;
         }else{
-            update_sum_seg_tree(0, 0, n-1, x, y);
+            update_sum_seg_tree(1, 1, n, x+1, y);
         }
     }
 }
