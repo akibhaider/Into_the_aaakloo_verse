@@ -20,10 +20,8 @@ public:
             m=l+(r-l)/2;
 		    if(nums[m]<target){
 			    l=m+1;;
-		    }else if(target<nums[m]){
-			    r=m;
 		    }else{
-			    r=m; // lower_bound contains equal value, so does r=m
+			    r=m;
 		    }
         }
         if(l<n && nums[l]<target){
@@ -35,9 +33,7 @@ public:
         int l=0, r=nums.size(), m, n=r;
         while(l<r){
             m=l+(r-l)/2;
-		    if(nums[m]<target){
-			    l=m+1;;
-		    }else if(target<nums[m]){
+		    if(nums[m]>target){
 			    r=m;
 		    }else{
 			    l=m+1; // upper_bound doesn't contain equal value, so does l=m+1

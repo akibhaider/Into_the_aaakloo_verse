@@ -23,6 +23,7 @@ Node* createNode(int x){
 }
 
 // Arg: key to search for
+// O(H), O(1)
 Node* NodeSearchByValue(int x){
     Node* temp = root;
     while(temp!=nullptr){
@@ -38,6 +39,7 @@ Node* NodeSearchByValue(int x){
 }
 
 // Arg: root
+// O(N), O(H)
 void PreorderTraversal(Node* temp){
     if(temp==nullptr){
         return;
@@ -48,6 +50,7 @@ void PreorderTraversal(Node* temp){
 }
 
 // Arg: root
+// O(N), O(height of recursion stack)
 void PostorderTraversal(Node* temp){
     if(temp==nullptr){
         return;
@@ -58,6 +61,7 @@ void PostorderTraversal(Node* temp){
 }
 
 // Arg: root
+// O(N), O(height of recursion stack)
 void InorderTraversal(Node* temp){
     if(temp==nullptr){
         return;
@@ -68,6 +72,7 @@ void InorderTraversal(Node* temp){
 }
 
 // Arg: root
+// O(N), O(N/2)
 void LevelorderTraversal(Node* root){
     queue<Node*>Q;
     Node* temp;
@@ -96,6 +101,7 @@ void LevelorderTraversal(Node* root){
 
 // Arg: key of two node
 // ret: Max key of a node in the path
+// O(H), O(1)
 int MaxInPath(int x, int y){
     Node* temp = root;
     int mx=y;
@@ -120,6 +126,7 @@ int MaxInPath(int x, int y){
 
 // Arg: key of two node
 // ret: Min key of a node in the path
+// O(H), O(1)
 int MinInPath(int x, int y){
     Node* temp = root;
     int mn=x;
@@ -142,6 +149,7 @@ int MinInPath(int x, int y){
     return mn;
 }
 // Arg: Node to be inserted
+// O(H), O(1)
 void InsertBST(int x){
     Node* n = createNode(x);
     if(root==nullptr){
@@ -183,6 +191,7 @@ void InsertBST(int x){
 
 // Arg: query node
 // ret: Successor node
+// O(H), O(1)
 Node* Successor(Node* n){
     if(n->right){
         n=n->right;
@@ -204,6 +213,7 @@ Node* Successor(Node* n){
 
 // Arg: query node
 // ret: Predecessor node
+// O(H), O(1)
 Node* Predecessor(Node* n){
     if(n->left){
         n=n->left;
@@ -224,6 +234,7 @@ Node* Predecessor(Node* n){
 }
 
 // Arg: Node to be deleted
+// O(H), O(1)
 void deleteNodeBST(int x){
     Node* n = NodeSearchByValue(x);
     if(n){
@@ -287,6 +298,7 @@ void deleteNodeBST(int x){
 
 // arg: Recursive fn starting with root
 // No ret-type; Update Diamter
+// O(H), O(H)
 void DiameterBST(Node* temp){
     if(temp==nullptr){
         return;
@@ -301,6 +313,7 @@ void DiameterBST(Node* temp){
 
 // Arg: Key of two node
 // Ret: LCA node 
+// O(H), O(1)
 Node* LowestCommonAncestorBST(int x, int y){
     Node* temp=root;
     while(x>temp->data || temp->data>y){
