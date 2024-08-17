@@ -1,1 +1,2 @@
 # Into_the_aaakloo_verse
+![Contributors](https://img.shields.io/github/contributors/akibhaider/Into_the_aaakloo_verse?color=darkgreen) ![Forks](https://img.shields.io/github/forks/akibhaider/Into_the_aaakloo_verse?style=social) ![Stargazers](https://img.shields.io/github/stars/akibhaider/Into_the_aaakloo_verse?style=social) ![Issues](https://img.shields.io/github/issues/akibhaider/Into_the_aaakloo_verse?color=brown) 
