@@ -1,0 +1,6 @@
+### Log related operations:
+
+double log_a_to_base_b(ll a, ll b)
+{
+    return log2((double)a) / log2((double)b);
+}
