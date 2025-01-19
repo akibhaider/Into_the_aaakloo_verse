@@ -6,3 +6,4 @@ __builtin_parity(x): Odd parity -> return 1
 
 1. Find the largest number which is power of 2 in range [L, R]:
    ( ( ( 1 << (31 - __builtin_clz(l^r))) - 1 ) | L ) + 1
+2. Bitwise independence in subtraction: a-b = c; i-th bit of a, b will only affect i-th bit of c. No extra carry will be added
